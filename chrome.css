@@ -70,11 +70,15 @@
     }
 }
 
+/* Hide non-tab children (drop indicators, spacers, etc.) */
+.zen-workspace-pinned-tabs-section > :not(.tabbrowser-tab),
+#vertical-pinned-tabs-container > .zen-workspace-tabs-section > :not(.tabbrowser-tab) {
+    display: none !important;
+}
+
 /* Individual tabs */
 .zen-workspace-pinned-tabs-section > .tabbrowser-tab,
-.zen-workspace-pinned-tabs-section > *,
-#vertical-pinned-tabs-container > .zen-workspace-tabs-section > .tabbrowser-tab,
-#vertical-pinned-tabs-container > .zen-workspace-tabs-section > * {
+#vertical-pinned-tabs-container > .zen-workspace-tabs-section > .tabbrowser-tab {
     /* Size - perfect square */
     width: var(--horizontal-pins-height) !important;
     min-width: var(--horizontal-pins-height) !important;
@@ -133,6 +137,20 @@
     position: relative !important;
     left: 0 !important;
     transform: none !important;
+    display: grid !important;
+    place-items: center !important;
+}
+
+/* Stack overlay on top of favicon, not beside it */
+.zen-workspace-pinned-tabs-section .tabbrowser-tab .tab-icon-stack > *,
+#vertical-pinned-tabs-container .tabbrowser-tab .tab-icon-stack > * {
+    grid-area: 1 / 1 !important;
+}
+
+/* Hide overlay for non-essential states (pending/unloaded indicator) */
+.zen-workspace-pinned-tabs-section .tabbrowser-tab .tab-icon-overlay:not([soundplaying]):not([muted]),
+#vertical-pinned-tabs-container .tabbrowser-tab .tab-icon-overlay:not([soundplaying]):not([muted]) {
+    display: none !important;
 }
 
 /* Fix loading spinner - keep it contained and centered */
