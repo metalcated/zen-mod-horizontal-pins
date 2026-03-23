@@ -116,11 +116,9 @@
     height: var(--horizontal-pins-height) !important;
     padding: 0 !important;
     margin: 0 !important;
-    justify-content: center !important;
-    align-items: center !important;
 }
 
-/* Hide labels, close button, and reset button - icon only */
+/* Hide labels, close button, reset button, and any text content */
 .zen-workspace-pinned-tabs-section .tabbrowser-tab .tab-label-container,
 .zen-workspace-pinned-tabs-section .tabbrowser-tab .tab-close-button,
 .zen-workspace-pinned-tabs-section .tabbrowser-tab .tab-reset-button,
@@ -130,34 +128,38 @@
     display: none !important;
 }
 
-/* Center favicon */
+
+/* Hide Zen's reset-pin button, its "/" separator, and audio button in compact mode */
+.zen-workspace-pinned-tabs-section .tabbrowser-tab .tab-reset-pin-button,
+.zen-workspace-pinned-tabs-section .tabbrowser-tab .tab-audio-button,
+.zen-workspace-pinned-tabs-section .tabbrowser-tab .tab-note-icon,
+#vertical-pinned-tabs-container .tabbrowser-tab .tab-reset-pin-button,
+#vertical-pinned-tabs-container .tabbrowser-tab .tab-audio-button,
+#vertical-pinned-tabs-container .tabbrowser-tab .tab-note-icon {
+    display: none !important;
+}
+
+/* Icon stack - don't override positioning, let XUL handle it */
 .zen-workspace-pinned-tabs-section .tabbrowser-tab .tab-icon-stack,
 #vertical-pinned-tabs-container .tabbrowser-tab .tab-icon-stack {
     margin: auto !important;
-    position: relative !important;
-    left: 0 !important;
-    transform: none !important;
-    display: grid !important;
-    place-items: center !important;
 }
 
-/* Stack overlay on top of favicon, not beside it */
-.zen-workspace-pinned-tabs-section .tabbrowser-tab .tab-icon-stack > *,
-#vertical-pinned-tabs-container .tabbrowser-tab .tab-icon-stack > * {
-    grid-area: 1 / 1 !important;
-}
-
-/* Hide overlay for non-essential states (pending/unloaded indicator) */
-.zen-workspace-pinned-tabs-section .tabbrowser-tab .tab-icon-overlay:not([soundplaying]):not([muted]),
-#vertical-pinned-tabs-container .tabbrowser-tab .tab-icon-overlay:not([soundplaying]):not([muted]) {
+/* Hide overlays inside icon stack (sharing, sound, note indicators) */
+.zen-workspace-pinned-tabs-section .tabbrowser-tab .tab-sharing-icon-overlay,
+.zen-workspace-pinned-tabs-section .tabbrowser-tab .tab-icon-overlay,
+.zen-workspace-pinned-tabs-section .tabbrowser-tab .tab-note-icon-overlay,
+.zen-workspace-pinned-tabs-section .tabbrowser-tab .tab-icon-pending,
+#vertical-pinned-tabs-container .tabbrowser-tab .tab-sharing-icon-overlay,
+#vertical-pinned-tabs-container .tabbrowser-tab .tab-icon-overlay,
+#vertical-pinned-tabs-container .tabbrowser-tab .tab-note-icon-overlay,
+#vertical-pinned-tabs-container .tabbrowser-tab .tab-icon-pending {
     display: none !important;
 }
 
 /* Fix loading spinner - keep it contained and centered */
 .zen-workspace-pinned-tabs-section .tabbrowser-tab .tab-throbber,
-.zen-workspace-pinned-tabs-section .tabbrowser-tab .tab-icon-pending,
-#vertical-pinned-tabs-container .tabbrowser-tab .tab-throbber,
-#vertical-pinned-tabs-container .tabbrowser-tab .tab-icon-pending {
+#vertical-pinned-tabs-container .tabbrowser-tab .tab-throbber {
     margin: auto !important;
     position: static !important;
     transform: none !important;
@@ -173,16 +175,10 @@
     max-width: var(--horizontal-pins-height) !important;
 }
 
-/* Tab background styling - perfect rounded square with uniform corners */
+/* Tab background styling */
 .zen-workspace-pinned-tabs-section .tabbrowser-tab .tab-background,
 #vertical-pinned-tabs-container .tabbrowser-tab .tab-background {
     border-radius: 8px !important;
-    width: var(--horizontal-pins-height) !important;
-    min-width: var(--horizontal-pins-height) !important;
-    max-width: var(--horizontal-pins-height) !important;
-    height: var(--horizontal-pins-height) !important;
-    min-height: var(--horizontal-pins-height) !important;
-    max-height: var(--horizontal-pins-height) !important;
     margin: 0 !important;
     padding: 0 !important;
 }
@@ -212,12 +208,12 @@
 }
 
 
-/* Optional: Hide unloaded tab indicator on pinned tabs */
+/* Note: Unloaded tab overlay is now hidden by default since all non-favicon
+   children of tab-icon-stack are hidden. The hide-unloaded-indicator pref
+   is no longer needed but kept for backward compatibility. */
 @media (-moz-bool-pref: "uc.horizontal-pins.hide-unloaded-indicator") {
     .zen-workspace-pinned-tabs-section .tabbrowser-tab[pending] .tab-icon-overlay,
-    .zen-workspace-pinned-tabs-section .tabbrowser-tab .tab-icon-overlay:not([soundplaying]):not([muted]),
-    #vertical-pinned-tabs-container .tabbrowser-tab[pending] .tab-icon-overlay,
-    #vertical-pinned-tabs-container .tabbrowser-tab .tab-icon-overlay:not([soundplaying]):not([muted]) {
+    #vertical-pinned-tabs-container .tabbrowser-tab[pending] .tab-icon-overlay {
         display: none !important;
     }
 }
